@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
 
-      <div>Test is working 🐒</div>
+      <div>Test is working good 🐒</div>
 
     </>
   );
