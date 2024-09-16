@@ -2,8 +2,8 @@
 import BottomNavBar from "@/Components/Navbar/BottomNavbar";
 import React from "react";
 
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/card";
+import { Button } from "../../Components/ui/button.jsx";
+import { Card } from "../../Components/ui/card.jsx";
 import BellIcon from "../../../public/BellIcon";
 import { CreditCard, PieChart } from "lucide-react";
 
