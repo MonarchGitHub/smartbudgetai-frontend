@@ -120,7 +120,7 @@ const Home = () => {
       </section>
       {/* <footer className="fixed bottom-0 w-full flex justify-between p-4 bg-white shadow-md">
         <HomeIcon className="w-6 h-6 text-gray-500" />
-        <BarChartIcon className="w-6 h-6 text-gray-500" />
+       <SettingsIcon className="w-6 h-6 text-gray-500" />
         <ExpandIcon className="w-6 h-6 text-gray-500" />
         <SettingsIcon className="w-6 h-6 text-gray-500" />
         <UserIcon className="w-6 h-6 text-gray-500" />

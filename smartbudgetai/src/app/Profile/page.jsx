@@ -1,18 +1,98 @@
+"use client";
 import BottomNavBar from "@/Components/Navbar/BottomNavbar";
 import React from "react";
+
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/card";
+import BellIcon from "../../../public/BellIcon";
+import { CreditCard, PieChart } from "lucide-react";
 
 const Profile = () => {
   function handleClick() {
     console.log("clicked");
   }
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-        <div onClick={handleClick()}>This is Profile page </div>
-      </div>
-
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <main className="flex-1 p-4 pt-6">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Profile</h1>
+          <Button size="icon" variant="ghost">
+            <BellIcon className="h-6 w-6" />
+            <span className="sr-only">Notifications</span>
+          </Button>
+        </div>
+        <Card className="mb-6">
+          <div className="p-4">
+            <div className="flex items-center space-x-4">
+              <img
+                alt="Profile picture"
+                className="rounded-full"
+                height="80"
+                // src="/placeholder.svg?height=80&width=80"
+                style={{
+                  aspectRatio: "80/80",
+                  objectFit: "cover",
+                }}
+                width="80"
+              />
+              <div>
+                <h2 className="text-xl font-semibold">Monarch</h2>
+                <p className="text-sm text-gray-500">Monarchk7@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card className="mb-6">
+          <div className="p-4">
+            <h3 className="text-lg font-semibold mb-2">Account Balance</h3>
+            <p className="text-3xl font-bold">$5,240.00</p>
+            <p className="text-sm text-green-600 flex items-center mt-1">
+              3.5% from last month
+            </p>
+          </div>
+        </Card>
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <Button
+            className="h-auto py-4 flex flex-col items-center justify-center"
+            variant="outline"
+          >
+            <CreditCard className="h-6 w-6 mb-2" />
+            Edit User Details
+          </Button>
+          <Button
+            className="h-auto py-4 flex flex-col items-center justify-center"
+            variant="outline"
+          >
+            <PieChart className="h-6 w-6 mb-2" />
+            Edit Budget
+          </Button>
+        </div>
+        <h3 className="text-lg font-semibold mb-2">User Details</h3>
+        <Card>
+          <div className="p-0">
+            <ul className="divide-y divide-gray-200">
+              {[
+                { name: "Phone Number", value: "987654345" },
+                { name: "Gender", value: "Male" },
+              ].map((transaction, index) => (
+                <li
+                  key={index}
+                  className="flex justify-between items-center p-4"
+                >
+                  <div>
+                    <p className="font-medium">{transaction.name}</p>
+                    <p className="text-sm text-violet-600">
+                      {transaction.value}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Card>
+      </main>
       <BottomNavBar />
-    </section>
+    </div>
   );
 };
 
