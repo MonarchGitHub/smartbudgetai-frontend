@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef(({ className, ...props }, ref) => (
+const card = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
@@ -56,7 +56,7 @@ const CardFooter = React.forwardRef(({ className, ...props }, ref) => (
 CardFooter.displayName = "CardFooter";
 
 export {
-  Card,
+  card,
   CardHeader,
   CardFooter,
   CardTitle,
