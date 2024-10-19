@@ -15,22 +15,19 @@ import HomeIcon from "../../../public/HomeIcon";
 import BarChartIcon from "../../../public/BarChartIcon";
 import ExpandIcon from "../../../public/ExpandIcon";
 import SettingsIcon from "../../../public/SettingsIcon";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../../lib/firebase.js";
 
 const Home = () => {
-  function handleClick() {
-    console.log("clicked");
-  }
-
-  const [data, setData] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      const { data: result } = await axios.get(
-        "https://smartbudgetai-backend.onrender.com/testing"
-      );
-      setData(result);
-    }
-    fetchData();
+    // Check for logged-in user
+    onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) router.push("/"); // Redirect if not logged in
+      setUser(currentUser);
+      console.log("current user is", currentUser);
+    });
   }, []);
 
   return (

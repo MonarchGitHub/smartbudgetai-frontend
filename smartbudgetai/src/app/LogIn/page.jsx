@@ -1,11 +1,37 @@
+"use client";
 import Link from "next/link";
 import { Button } from "../../Components/ui/button.jsx";
 import { Checkbox } from "../../Components/ui/checkbox.jsx";
 import { Input } from "../../Components/ui/input.jsx";
 import { Label } from "../../Components/ui/label.jsx";
 import { PiggyBank } from "lucide-react";
-
+import { auth } from "../../lib/firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  // const [name, setName] = useState('');
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/Home"); // Redirect to profile on successful sign-in
+    } catch (error) {
+      console.error(error);
+      alert(error);
+      // Handle sign-in errors appropriately
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md space-y-8 px-4 bg-white dark:bg-gray-800 shadow sm:rounded-lg sm:px-10 py-8">
@@ -30,6 +56,7 @@ export default function LoginPage() {
                 required
                 className="mt-1"
                 placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -42,6 +69,7 @@ export default function LoginPage() {
                 required
                 className="mt-1"
                 placeholder="Enter your password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -56,7 +84,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <Button type="submit" className="w-full">
+            <Button onClick={handleSubmit} type="submit" className="w-full">
               Log in
             </Button>
           </div>
