@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "../../Components/ui/card.jsx";
 import {
   PieChart,
   Pie,
