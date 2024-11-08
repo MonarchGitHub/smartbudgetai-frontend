@@ -17,6 +17,23 @@ import ExpandIcon from "../../../public/ExpandIcon";
 import SettingsIcon from "../../../public/SettingsIcon";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../lib/firebase.js";
+import { ArrowBigDownDashIcon, PlusIcon } from "lucide-react";
+
+const transactions = [
+  {
+    id: 1,
+    name: "Amazon",
+    amount: 2000,
+    icon: <AppleIcon className="w-6 h-6 text-gray-500" />,
+  },
+  {
+    id: 2,
+    name: "Spotify",
+    amount: 700,
+    icon: <AirplayIcon className="w-6 h-6 text-gray-500" />,
+  },
+  // Add more transactions as needed
+];
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -29,6 +46,36 @@ const Home = () => {
       console.log("current user is", currentUser);
     });
   }, []);
+
+  const [showBudgetPopup, setShowBudgetPopup] = useState(false);
+  const [expenseName, setExpenseName] = useState("");
+  const [expenseAmount, setExpenseAmount] = useState("");
+  const [recentTransactions, setRecentTransactions] = useState(transactions);
+
+  const handleOpenBudgetPopup = () => {
+    setShowBudgetPopup(true);
+  };
+
+  const handleCloseBudgetPopup = () => {
+    setShowBudgetPopup(false);
+  };
+  const handleSaveBudget = () => {
+    setShowBudgetPopup(false);
+  };
+
+  const addTransaction = () => {
+    const newTransaction = {
+      id: recentTransactions.length + 1,
+      name: expenseName,
+      amount: expenseAmount,
+      icon: <PlusIcon className="w-6 h-6 text-gray-500" />, // Default icon if none provided
+    };
+
+    setRecentTransactions((prevTransactions) => [
+      ...prevTransactions,
+      newTransaction,
+    ]);
+  };
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-gray-100 p-4">
@@ -98,21 +145,76 @@ const Home = () => {
           </div>
           <div className="w-full p-4 bg-white shadow-md">
             <h2 className="text-lg font-semibold">Recent Transactions</h2>
-            <div className="flex justify-between mt-2">
-              <div className="flex items-center space-x-2">
-                <AppleIcon className="w-6 h-6 text-gray-500" />
-                <p className="text-sm font-semibold">Amazon</p>
+            {recentTransactions.map((transaction) => (
+              <div key={transaction.id} className="flex justify-between mt-2">
+                <div className="flex items-center space-x-2">
+                  {transaction.icon}
+                  <p className="text-sm font-semibold">{transaction.name}</p>
+                </div>
+                <p className="text-sm font-semibold">
+                  {transaction.amount < 0
+                    ? `- ₹ ${Math.abs(transaction.amount)}`
+                    : `₹ ${transaction.amount}`}
+                </p>
               </div>
-              <p className="text-sm font-semibold">- ₹ 2000</p>
-            </div>
-            <div className="flex justify-between mt-2">
-              <div className="flex items-center space-x-2">
-                <AirplayIcon className="w-6 h-6 text-gray-500" />
-                <p className="text-sm font-semibold">Spotify</p>
-              </div>
-              <p className="text-sm font-semibold">- ₹ 700</p>
-            </div>
+            ))}
           </div>
+          <button
+            onClick={handleOpenBudgetPopup}
+            className="px-4 py-2 bg-violet-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition ease-in-out duration-200"
+          >
+            Add Expense
+          </button>
+
+          {showBudgetPopup && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300">
+              <div className="bg-white p-6 rounded-lg shadow-lg transdiv transition-all scale-95 md:w-1/3 sm:w-full">
+                <h2 className="text-xl font-bold text-gray-800 mb-4">
+                  Enter Expense Details
+                </h2>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Expense Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter Expense name"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
+                      onChange={(e) => setExpenseName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Expense Amount
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Enter amount"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition duration-200"
+                      onChange={(e) => setExpenseAmount(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-3 mt-4">
+                    <button
+                      type="button"
+                      onClick={handleCloseBudgetPopup}
+                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition ease-in-out duration-200"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition ease-in-out duration-200"
+                      onClick={addTransaction}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </main>
       </section>
       {/* <footer className="fixed bottom-0 w-full flex justify-between p-4 bg-white shadow-md">

@@ -99,7 +99,7 @@ const Analysis = () => {
                 >
                   {expenseData.map((entry, index) => (
                     <Cell
-                      key={`cell-${index}`}
+                      key={`cell-₹{index}`}
                       fill={COLORS[index % COLORS.length]}
                     />
                   ))}
@@ -109,7 +109,7 @@ const Analysis = () => {
             </ResponsiveContainer>
             <div className="mt-4">
               <p className="font-semibold">
-                {expenseData[activeIndex].name}: $
+                {expenseData[activeIndex].name}: ₹
                 {expenseData[activeIndex].value}
               </p>
             </div>

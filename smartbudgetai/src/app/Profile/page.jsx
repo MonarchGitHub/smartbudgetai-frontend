@@ -45,7 +45,7 @@ const Profile = () => {
         <Card className="mb-6">
           <div className="p-4">
             <h3 className="text-lg font-semibold mb-2">Account Balance</h3>
-            <p className="text-3xl font-bold">$5,240.00</p>
+            <p className="text-3xl font-bold">₹5,240.00</p>
             <p className="text-sm text-green-600 flex items-center mt-1">
               3.5% from last month
             </p>
