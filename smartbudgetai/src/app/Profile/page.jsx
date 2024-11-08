@@ -1,16 +1,30 @@
 "use client";
 import BottomNavBar from "@/Components/Navbar/BottomNavbar";
 import React from "react";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../../lib/firebase.js";
+import { useRouter } from "next/navigation";
 import { Button } from "../../Components/ui/button.jsx";
 import { Card } from "../../Components/ui/card.jsx";
 import BellIcon from "../../../public/BellIcon";
-import { CreditCard, PieChart } from "lucide-react";
+import { CreditCard, LogOut, PieChart } from "lucide-react";
 
 const Profile = () => {
+  const router = useRouter();
   function handleClick() {
     console.log("clicked");
   }
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // Redirect to login page after logout
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <main className="flex-1 p-4 pt-6">
@@ -63,8 +77,8 @@ const Profile = () => {
             className="h-auto py-4 flex flex-col items-center justify-center"
             variant="outline"
           >
-            <PieChart className="h-6 w-6 mb-2" />
-            Edit Budget
+            <LogOut onClick={handleLogout} className="h-6 w-6 mb-2" />
+            Logout
           </Button>
         </div>
         <h3 className="text-lg font-semibold mb-2">User Details</h3>

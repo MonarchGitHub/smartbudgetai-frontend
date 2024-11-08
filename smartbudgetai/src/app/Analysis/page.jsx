@@ -39,8 +39,8 @@ const Analysis = () => {
   ];
 
   const incomeVsExpenseData = [
-    { name: "Income", value: 4000 },
-    { name: "Expenses", value: 3000 },
+    { name: "Income", value: 50000 },
+    { name: "Expenses", value: 12786 },
   ];
 
   const savingsData = [

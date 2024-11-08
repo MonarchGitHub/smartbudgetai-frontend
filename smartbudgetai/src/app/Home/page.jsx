@@ -18,7 +18,7 @@ import SettingsIcon from "../../../public/SettingsIcon";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../lib/firebase.js";
 import { ArrowBigDownDashIcon, PlusIcon } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 const transactions = [
   {
     id: 1,
@@ -37,7 +37,7 @@ const transactions = [
 
 const Home = () => {
   const [user, setUser] = useState(null);
-
+  const router = useRouter();
   useEffect(() => {
     // Check for logged-in user
     onAuthStateChanged(auth, (currentUser) => {
