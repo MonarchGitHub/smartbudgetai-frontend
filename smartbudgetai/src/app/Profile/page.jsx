@@ -36,8 +36,8 @@ const Profile = () => {
                 width="80"
               />
               <div>
-                <h2 className="text-xl font-semibold">Monarch</h2>
-                <p className="text-sm text-gray-500">Monarchk7@gmail.com</p>
+                <h2 className="text-xl font-semibold">Harsh</h2>
+                <p className="text-sm text-gray-500">Harsh@gmail.com</p>
               </div>
             </div>
           </div>

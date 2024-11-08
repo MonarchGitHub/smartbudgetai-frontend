@@ -39,7 +39,7 @@ const Home = () => {
             <SearchIcon className="w-6 h-6 text-gray-500" />
             <h1 className="text-lg font-semibold">
               {/* Hi, {data ? JSON.stringify(data) : "Loading..."} */}
-              Hi, Monarch
+              Hi, Harsh Yadav
             </h1>
           </div>
           <BellIcon className="w-6 h-6 text-gray-500" />
